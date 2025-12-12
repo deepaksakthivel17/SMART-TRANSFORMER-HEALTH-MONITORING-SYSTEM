@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transformer Monitoring System - Access Links</title>
+    <script>
+        // Check if user is logged in
+        if (!localStorage.getItem('isLoggedIn')) {
+            window.location.href = 'login.html';
+        }
+        z
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            window.location.href = 'login.html';
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            width: 90%;
+        }
+        h1 {
+            color: #1e3c72;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        .description {
+            color: #666;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin: 10px;
+        }
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .access-info {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: left;
+        }
+        .access-info h2 {
+            color: #1e3c72;
+            margin-top: 0;
+        }
+        .link-box {
+            background: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border: 1px solid #dee2e6;
+        }
+        .code {
+            font-family: monospace;
+            background: #f1f3f5;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .note {
+            color: #dc3545;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1>Smart Transformer Monitor</h1>
+                <button onclick="logout()" style="padding: 10px 20px; background: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer;">Logout</button>
+            </div>
+            <div class="description">
+                Access the monitoring system from any device on your network
+            </div>        <a href="deepak.html" class="button">Local Dashboard →</a>
+        
+        <div class="access-info">
+            <h2>Network Access Links</h2>
+            <p>Use these links to access the system from other devices on your network:</p>
+            
+            <div class="link-box">
+                <strong>Main Dashboard:</strong><br>
+                <span class="code">http://10.0.252.253:5500/deepak.html</span>
+            </div>
+            
+            <div class="link-box">
+                <strong>Landing Page:</strong><br>
+                <span class="code">http://10.0.252.253:5500/index.html</span>
+            </div>
+            
+            <div class="note">
+                <strong>Important Notes:</strong>
+                <ul>
+                    <li>Make sure Live Server is running (port 5500)</li>
+                    <li>Both devices must be on the same network</li>
+                    <li>If links don't work, check your firewall settings</li>
+                    <li>For security, these links only work within your local network</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

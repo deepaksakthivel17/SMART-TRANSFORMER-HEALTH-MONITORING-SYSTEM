@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Transformer Monitoring System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        if (!localStorage.getItem('isLoggedIn')) {
+            window.location.href = 'login.html';
+        }
+        
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            window.location.href = 'login.html';
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: #f0f2f5;
+            color: #333;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 15px;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .logout-btn {
+            padding: 8px 20px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            background: linear-gradient(rgba(30,60,114,0.95), rgba(42,82,152,0.95));
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 64px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(transparent, #f0f2f5);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-content p {
+            font-size: 1.4rem;
+            margin-bottom: 2.5rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .cta-primary {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .features {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #1e3c72;
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: #f0f7ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            color: #1e3c72;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #1e3c72;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .stats {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            padding: 6rem 2rem;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 3rem auto 0;
+        }
+
+        .stat-card {
+            padding: 2rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .benefits {
+            padding: 6rem 2rem;
+            background: #fff;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 3rem auto 0;
+        }
+
+        .benefit-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            color: #2ecc71;
+            margin-bottom: 1.5rem;
+        }
+
+        footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            text-align: left;
+        }
+
+        .footer-section h3 {
+            color: #2ecc71;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section ul li a {
+            color: #888;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .copyright {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+            .cta-buttons {
+                flex-direction: column;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-bolt"></i>
+            SmartTransformer
+        </div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#stats">Performance</a>
+            <a href="#benefits">Benefits</a>
+        </div>
+        <button onclick="logout()" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Smart Transformer Monitoring System</h1>
+            <p>Advanced real-time monitoring and analytics for optimal transformer performance</p>
+            <div class="cta-buttons">
+                <a href="deepak.html" class="cta-button cta-primary">
+                    <i class="fas fa-chart-line"></i> Live Dashboard
+                </a>
+                <a href="#features" class="cta-button cta-secondary">
+                    <i class="fas fa-info-circle"></i> Learn More
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="section-title">
+            <h2>Key Features</h2>
+            <p>Comprehensive monitoring solutions for your transformer infrastructure</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-temperature-high"></i>
+                </div>
+                <h3>Temperature Monitoring</h3>
+                <p>Real-time temperature tracking with instant alerts for overheating conditions</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-tint"></i>
+                </div>
+                <h3>Oil Level Tracking</h3>
+                <p>Continuous monitoring of transformer oil levels with predictive maintenance alerts</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Load Analysis</h3>
+                <p>Advanced load current monitoring with overload protection alerts</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Vibration Detection</h3>
+                <p>Precise vibration measurement for early fault detection</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats" id="stats">
+        <div class="section-title">
+            <h2>System Performance</h2>
+            <p>Reliable monitoring around the clock</p>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">99.9%</div>
+                <div>System Uptime</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">&lt; 2s</div>
+                <div>Response Time</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">24/7</div>
+                <div>Active Monitoring</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="benefits" id="benefits">
+        <div class="section-title">
+            <h2>System Benefits</h2>
+            <p>Why choose our monitoring system</p>
+        </div>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Enhanced Safety</h3>
+                <p>Prevent accidents and ensure equipment safety</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h3>Improved Efficiency</h3>
+                <p>Optimize performance and reduce costs</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h3>Predictive Maintenance</h3>
+                <p>Prevent failures before they occur</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="deepak.html">Dashboard</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#stats">Performance</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">System Status</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2025 Smart Transformer Monitoring System. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
